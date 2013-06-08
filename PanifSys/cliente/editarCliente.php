@@ -25,21 +25,43 @@
 <div class="formulario">
 
 <?php
-$usuarioLogado = $_SESSION['UsuarioLogin'];
 
-$sql = mysql_query("SELECT * FROM clientes where login_cliente = '$usuarioLogado'");
-$coluna = mysql_fetch_array($sql);
+if($_SESSION['UsuarioNivel'] == 1)
+{
+	$lg = $clienteAltera;
 
-$sql2 = mysql_query("SELECT * FROM usuarios_login where login = '$usuarioLogado'");
-$coluna2 = mysql_fetch_array($sql2);
- 
-?>
+	$sql = mysql_query("SELECT * FROM clientes where id_cliente = '$lg'");
+	$coluna = mysql_fetch_array($sql);
+	$loginCliente = $coluna['login_cliente'];
 	
+	$sql2 = mysql_query("SELECT * FROM usuarios_login where login = '$loginCliente'");
+	$coluna2 = mysql_fetch_array($sql2);
+
+}
+else if($_SESSION['UsuarioNivel'] == 3)
+{ 
+	$usuarioLogado = $_SESSION['UsuarioLogin'];
+	
+	$sql = mysql_query("SELECT * FROM clientes where login_cliente = '$usuarioLogado'");
+	$coluna = mysql_fetch_array($sql);
+	
+	$sql2 = mysql_query("SELECT * FROM usuarios_login where login = '$usuarioLogado'");
+	$coluna2 = mysql_fetch_array($sql2);
+
+}
+?>
+<?php
+if($_SESSION['UsuarioNivel'] == 3 )
+{ ?>	
 <form name="frmCadCliente" id="formulariocliente" method="post" action="salvaAlteracoes.php" onsubmit="return validaForm(this,2);">
+<?php } 
+else if($_SESSION['UsuarioNivel'] == 1){ ?>
+<form name="frmCadCliente" id="formulariocliente" method="post" action="../cliente/salvaAlteracoes.php" onsubmit="return validaForm(this,4);">
+<?php } ?>
    <table width="100%" border="0">
     <tr>
       <td width="9%">&nbsp;</td>
-      <td colspan="3" align="center"><strong>Editar Cliente</strong></td>
+      <td colspan="3" align="center"><strong>Alterar Dados</strong></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -103,7 +125,7 @@ $coluna2 = mysql_fetch_array($sql2);
       <td align="right">Complemento:</td>
       <td><label for="complemento"></label>
       <input name="complemento" type="text" id="complemento" size="30" /></td>
-      <td align="right">Bairro:</td>
+      <td align="right">*Bairro:</td>
       <td align="left"><label for="bairro"></label>
       <input name="bairro" type="text" id="bairro" size="30" value="<?php echo $coluna['bairro'] ?>"/></td>
     </tr>
@@ -111,7 +133,7 @@ $coluna2 = mysql_fetch_array($sql2);
       <td align="right">*Cidade:</td>
       <td><label for="cidade"></label>
       <input name="cidade" type="text" id="cidade" size="30" value="<?php echo $coluna['cidade'] ?>"/></td>
-      <td align="right">Estado:</td>
+      <td align="right">*Estado:</td>
       <td align="left"><label for="estado"></label>
         <select name="estado" id="estado">
         <option><?php echo $coluna['estado'] ?></option>

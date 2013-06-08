@@ -5,6 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Cadastrar Cliente</title>
 
+<?php if (!isset($_SESSION)) session_start(); ?>
+<?php include "../uteis/validaFormCliente.js" ?>
 <style type="text/css">
 #form1 table tr td strong {
 	color: #003;
@@ -31,6 +33,22 @@ $(document).ready(function(){
 		}		
 	})
 });
+		
+</script>
+<script type="text/javascript">// <![CDATA[
+function reloadCaptcha()
+{
+	document.getElementById('captcha').src = document.getElementById('captcha').src+ '?' +new Date();
+}
+// ]]></script>
+
+<script type="text/javascript">
+
+
+
+
+
+
 </script>
 
 </head>
@@ -41,11 +59,19 @@ $(document).ready(function(){
 
 <div class="formulario">
 
+<?php
+if($_SESSION['UsuarioNivel'] != 1 || $_SESSION['UsuarioNivel'] != 2)
+{ ?>
 <form name="frmCadCliente" id="formulariocliente" method="post" action="cliente/efetuaCadastro.php" onsubmit="return validaForm(this,1);">
+<?php 
+} 
+else if($_SESSION['UsuarioNivel'] == 1){ ?>
+<form name="frmCadCliente" id="formulariocliente" method="post" action="../cliente/efetuaCadastro.php" onsubmit="return validaForm(this,3);">
+<?php } ?>
    <table width="100%" border="0">
     <tr>
       <td width="9%">&nbsp;</td>
-      <td colspan="3" align="center"><strong>Cadastrar Novo Cliente</strong></td>
+      <td colspan="3" align="center"><strong>Novo Cliente</strong></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -121,33 +147,33 @@ $(document).ready(function(){
       <td align="left"><label for="estado"></label>
         <select name="estado" id="estado">
         <option>Selecione</option>
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espirito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraiba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantis</option>
+            <option value="AC">AC</option>
+            <option value="AL">AL</option>
+            <option value="AP">AP</option>
+            <option value="AM">AM</option>
+            <option value="BA">BA</option>
+            <option value="CE">CE</option>
+            <option value="DF">DF</option>
+            <option value="ES">ES</option>
+            <option value="GO">GO</option>
+            <option value="MA">MA</option>
+            <option value="MT">MG</option>
+            <option value="MS">MS</option>
+            <option value="MG">MG</option>
+            <option value="PA">PA</option>
+            <option value="PB">PB</option>
+            <option value="PR">PR</option>
+            <option value="PE">PE</option>
+            <option value="PI">PI</option>
+            <option value="RJ">RJ</option>
+            <option value="RN">RN</option>
+            <option value="RS">RS</option>
+            <option value="RO">RO</option>
+            <option value="RR">RR</option>
+            <option value="SC">SC</option>
+            <option value="SP">SP</option>
+            <option value="SE">SE</option>
+            <option value="TO">TO</option>
         </select></td>
     </tr>
     <tr>
@@ -160,23 +186,27 @@ $(document).ready(function(){
       <td align="right">*Login:</td>
       <td><label for="login"></label>
       <input name="login" type="text" id="login" size="25" maxlength="20" value="" /></td>
-      <td>&nbsp;</td>
-      <td align="left">&nbsp;</td>
-    </tr>
+      <td colspan="2" rowspan="3">
+      
+      <?php
+	  
+      if($_SESSION['UsuarioNivel'] == 4 || $_SESSION['UsuarioNivel'] == "" )
+		{ ?>
+         <img id="captcha" title="Clique para recarregar a imagem" onclick="javascript:reloadCaptcha()" alt="" src="uteis/captcha.php" />
+        <input onclick="this.value=''" type="text" maxlength="4" name="secure" size="20" value="" />
+	<?php } ?>
+		</td>
+      </tr>
     <tr>
       <td align="right">*Senha:</td>
       <td><label for="senha"></label>
-      <input name="senha" type="password" id="senha" size="25" maxlength="20" value=""/></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
+        <input name="senha" type="password" id="senha" size="25" maxlength="20" value=""/></td>
+      </tr>
     <tr>
       <td align="right">*Confirmar Senha</td>
       <td><label for="confirmaSenha"></label>
         <input name="confirmaSenha" type="password" id="confirmaSenha" size="25" maxlength="20" value=""/></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
+      </tr>
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>

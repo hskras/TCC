@@ -87,8 +87,8 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 				@include('../funcionario/cadastrarFuncionario.php');
 			 }
 			 else if(isset($_GET['editarCliente'])){
-				 $nomeCliente="teste";
-				@include ('../cliente/cadastrarCliente.php');
+				 $clienteAltera = $_GET['editarCliente'];
+				@include ('../cliente/editarCliente.php');
 			 }
 			 else if(isset($_GET['editarFuncionario'])){
 				 $funcionarioAltera = $_GET['editarFuncionario'];
@@ -96,11 +96,11 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 			 }
 			 else if(isset($_GET['excluirCliente'])){
 				 
-				 //ações excluir
+				 //ações excluir - estou excluindo no próprio listar, não passa por aqui
 			 }
 			 else if(isset($_GET['excluirFuncionario'])){
 				 
-				 //ações excluir
+				 //ações excluir - estou excluindo no próprio listar, não passa por aqui
 			 }
 			 	 
 			 else @include ('inicioAdministrador.php'); 
@@ -130,16 +130,9 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 				<ul>
 					<li><a href="../administrador/layoutAdministrador.php?listarClientes=true">Cadastrar Clientes</a></li>
 					<li><a href="../administrador/layoutAdministrador.php?listarFuncionarios=true">Cadastrar Funcionários</a></li>
-					<li><a href="#">Cadastrar Fornecedores</a></li>
 					<li><a href="#">Cadastrar Produtos</a></li>
 					<li><a href="#">Controlar Estoque</a></li>
-					<li><a href="#">Cadastrar Pedidos</a></li>					
-                    <li><a href="#">Controlar Pagamentos </a></li>	
-                    <li><a href="#">Controlar Recebimentos </a></li>				
-                    <li><a href="#">Interpretar Nota Fiscal Eletrônica</a></li>					
-                    <li><a href="#">Gerar Nota Fiscal Eletrônica</a></li>	
-                    <li><a href="#">Consultar Rota Entrega</a></li>	
-                    <li><a href="#">Lançar Leilão</a></li>					
+					<li><a href="#">Cadastrar Pedidos</a></li>										
 				</ul>
 			</li>
 			<li> 

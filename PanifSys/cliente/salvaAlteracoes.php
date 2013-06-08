@@ -1,5 +1,6 @@
 <?php
 
+if (!isset($_SESSION)) session_start();
 include "../uteis/conexao.php";
 
 $nome = trim($_POST['nome']);
@@ -70,6 +71,13 @@ if(@mysql_query("UPDATE usuarios_login SET senha = '$senha_cripto' WHERE login =
 	@mysql_close();
 }
 
-header("Location: layoutCliente.php?alteracao=true");
+if($_SESSION['UsuarioNivel'] == 3)
+{
+	header("Location: layoutCliente.php?alteracao=true");
+}
+else if($_SESSION['UsuarioNivel'] == 1)
+{
+	header("Location: ../administrador/layoutAdministrador.php?listarClientes=true");
+}
 
 ?>

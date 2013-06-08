@@ -11,11 +11,6 @@ if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']))) {
 $usuario = mysql_real_escape_string($_POST['usuario']);
 $senha = mysql_real_escape_string($_POST['senha']);
 
-
-//INSERT INTO `usuarios` VALUES (NULL, 'Usuário Teste', 'demo', SHA1( 'demo' ), 'usuario@demo.com.br', 1, 1, NOW( ));
-//(`senha` = '". sha1($senha) ."')
-
-
 // Validação do usuário/senha digitados
 $sql = "SELECT login, nivel_acesso FROM usuarios_login WHERE login = '$usuario' AND senha = '". sha1($senha) ."' AND ativo = 1 LIMIT 1";
 $query = mysql_query($sql);
@@ -29,13 +24,13 @@ if (mysql_num_rows($query) != 1)
 	// Salva os dados encontados na variável $resultado
 	$resultado = mysql_fetch_assoc($query);
 
-	if($resultado['nivel_acesso'] == 1){ //O AMD VAI ESTAR NA TABELA DE FUNCIONARIOS.. ALTERAR DEPOIS
-	 	$sql2 = "select * from clientes where login_cliente = '$usuario'";
+	if($resultado['nivel_acesso'] == 1){ 
+	 	$sql2 = "select * from funcionarios where login_funcionario = '$usuario'";
 		$query2 = mysql_query($sql2);
 		$resultado2 = mysql_fetch_assoc($query2);	
 	}
 	else if($resultado['nivel_acesso'] == 2){
-	 	$sql2 = "select * from clientes where login_cliente = '$usuario'";
+	 	$sql2 = "select * from funcionarios where login_funcionario = '$usuario'";
 		$query2 = mysql_query($sql2);
 		$resultado2 = mysql_fetch_assoc($query2);	
 	}

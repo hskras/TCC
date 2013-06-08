@@ -30,149 +30,168 @@ function verificaCPF(campo) {
 }
  
 function validaForm(frm,acao) {
-// O paramêtro frm desta função significa: this.form, pois a chamada da função - validaForm(this), foi setada na tag form.
+// passa o formulario e a ação. Ação representa inclusão ou alteração.
+		
+		var url = 'uteis/captcheck.php?code=';
+        var captchaOK = 2;  // 2 - não checado ainda, 1 - certo, 0 - errado
+        
+        function getHTTPObject()
+        {
+        try {
+        req = new XMLHttpRequest();
+          } catch (err1)
+          {
+          try {
+          req = new ActiveXObject("Msxml12.XMLHTTP");
+          } catch (err2)
+          {
+          try {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (err3)
+            {
+			req = false;
+					}
+				  }
+			}
+				return req;
+			}
+        
+        var http = getHTTPObject(); // Cria o objeto HTTP        
+        
+        function handleHttpResponse() {
+        if (http.readyState == 4) {
+            captchaOK = http.responseText;
+            if(captchaOK != 1) {
+              alert('Captcha Incorreto!');
+              frm.secure.value='';
+              frm.secure.focus();
+              return false;
+              }
+			  //alert('Captcha ok');
+              frm.submit();
+           }
+        }
+		
+		function checkcode(thecode) {
+			http.open("GET", url + escape(thecode), true);
+			http.onreadystatechange = handleHttpResponse;
+			http.send(null);
+        }
 
-// Vamos verificar se o campo nome foi preenchido e se ele contém no mínio três caracteres.
-if(frm.nome.value == "" || frm.nome.value == null || frm.nome.value.length < 3) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha seu nome!");
-	// Vamos setar um focus no campo.
-	frm.nome.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-
-if(frm.telefone.value == "" || frm.telefone.value == null || frm.telefone.value.length < 13) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o telefone corretamente!");
-	// Vamos setar um focus no campo.
-	frm.telefone.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(frm.dataNascimento.value == "" || frm.dataNascimento.value == null || frm.dataNascimento.value.length < 10) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha a data de Nascimento corretamente!");
-	// Vamos setar um focus no campo.
-	frm.dataNascimento.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-
-var filtro_email = /^.+@.+\..{2,3}$/
-if (!filtro_email.test(frm.email.value) || frm.email.value=="") {
-	alert("Preencha o email corretamente.");
-	frm.email.focus();
-	return false;
-}
-
-if(frm.cpf.value == "" || frm.cpf.value == null || frm.cpf.value.length < 14) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o CPF corretamente!");
-	// Vamos setar um focus no campo.
-	frm.cpf.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(verificaCPF(frm.cpf.value) == false)
-{
-	alert("CPF Inválido!");
-	// Vamos setar um focus no campo.
-	frm.cpf.focus();
-	// Bloqueando o envio do form.
-	return false;
-	
-}
-
-if(frm.cep.value == "" || frm.cep.value == null || frm.cep.value.length < 9) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o CEP corretamente!");
-	// Vamos setar um focus no campo.
-	frm.cep.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-
-if(frm.endereco.value == "" || frm.endereco.value == null) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o Endereço corretamente!");
-	// Vamos setar um focus no campo.
-	frm.endereco.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(frm.numero.value == "" || frm.numero.value == null) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o número do endereço corretamente!");
-	// Vamos setar um focus no campo.
-	frm.numero.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(frm.cidade.value == "" || frm.cidade.value == null) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha a Cidade corretamente!");
-	// Vamos setar um focus no campo.
-	frm.cidade.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(frm.bairro.value == "" || frm.bairro.value == null) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o bairro corretamente!");
-	// Vamos setar um focus no campo.
-	frm.bairro.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(frm.estado.value == "" || frm.estado.value == null) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o estado corretamente!");
-	// Vamos setar um focus no campo.
-	frm.estado.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-
-if(frm.login.value == "" || frm.login.value == null) {
-	// Exibiremos um alerta, caso o campo esteja vazio.
-	alert("Preencha o Login!");
-	// Vamos setar um focus no campo.
-	frm.login.focus();
-	// Bloqueando o envio do form.
-	return false;
-}
-if(acao == 1){
-	if(frm.senha.value == "" || frm.senha.value == null) {
-		// Exibiremos um alerta, caso o campo esteja vazio.
-		alert("Preencha a Senha!");
-		// Vamos setar um focus no campo.
-		frm.senha.focus();
-		// Bloqueando o envio do form.
-		return false;
-	}
-	if(frm.confirmaSenha.value == "" || frm.confirmaSenha.value == null) {
-		// Exibiremos um alerta, caso o campo esteja vazio.
-		alert("Confirme a Senha!");
-		// Vamos setar um focus no campo.
-		frm.confirmaSenha.focus();
-		// Bloqueando o envio do form.
-		return false;
-	}
-	if(frm.confirmaSenha.value != frm.senha.value) {
-		// Exibiremos um alerta, caso o campo esteja vazio.
-		alert("As senhas inseridas não são iguais!");
-		// Vamos setar um focus no campo.
-		frm.confirmaSenha.focus();
-		// Bloqueando o envio do form.
-		return false;
-	}
-}
-// Como tudo está correto, vamos permitir o envio do formulário.
-
-if(acao == 1) alert('Cadastramento realizado com sucesso. Você será redirecionado a página inicial, efetue seu login para acessar o sistema.');
-else if(acao == 2) alert('Aterações realizadas com sucesso. Você será redirecionado a página inicial do cliente!');
-return true;
+		// verifica se o campo nome foi preenchido e se ele contém no mínimo três caracteres.
+		if(frm.nome.value == "" || frm.nome.value == null || frm.nome.value.length < 3) {
+			alert("Preencha seu nome!");
+			frm.nome.focus(); //coloca foco no campo			
+			return false; //não deixa enviar o form
+		}
+		
+		if(frm.telefone.value == "" || frm.telefone.value == null || frm.telefone.value.length < 13) {
+			alert("Preencha o telefone corretamente!");
+			frm.telefone.focus();
+			return false;
+		}
+		if(frm.dataNascimento.value == "" || frm.dataNascimento.value == null || frm.dataNascimento.value.length < 10) {
+			alert("Preencha a data de Nascimento corretamente!");
+			frm.dataNascimento.focus();
+			return false;
+		}
+		
+		var filtro_email = /^.+@.+\..{2,3}$/
+		if (!filtro_email.test(frm.email.value) || frm.email.value=="") {
+			alert("Preencha o email corretamente.");
+			frm.email.focus();
+			return false;
+		}
+		
+		if(frm.cpf.value == "" || frm.cpf.value == null || frm.cpf.value.length < 14) {
+			alert("Preencha o CPF corretamente!");
+			frm.cpf.focus();
+			return false;
+		}
+		
+		if(verificaCPF(frm.cpf.value) == false)
+		{
+			alert("CPF Inválido!");
+			frm.cpf.focus();
+			return false;			
+		}
+		
+		if(frm.cep.value == "" || frm.cep.value == null || frm.cep.value.length < 9) {
+			alert("Preencha o CEP corretamente!");
+			frm.cep.focus();
+			return false;
+		}
+		
+		if(frm.endereco.value == "" || frm.endereco.value == null) {
+			alert("Preencha o Endereço corretamente!");
+			frm.endereco.focus();
+			return false;
+		}
+		
+		if(frm.numero.value == "" || frm.numero.value == null) {
+			alert("Preencha o número do endereço corretamente!");
+			frm.numero.focus();
+			return false;
+		}
+		
+		if(frm.cidade.value == "" || frm.cidade.value == null) {
+			alert("Preencha a Cidade corretamente!");
+			frm.cidade.focus();
+			return false;
+		}
+		
+		if(frm.bairro.value == "" || frm.bairro.value == null) {
+			alert("Preencha o bairro corretamente!");
+			frm.bairro.focus();
+			return false;
+		}
+		
+		if(frm.estado.value == "" || frm.estado.value == null) {
+			alert("Preencha o estado corretamente!");
+			frm.estado.focus();
+			return false;
+		}
+		
+		if(frm.login.value == "" || frm.login.value == null) {
+			alert("Preencha o Login!");
+			frm.login.focus();
+			return false;
+		}
+		
+		if(acao == 1){
+			if(frm.senha.value == "" || frm.senha.value == null) {
+				alert("Preencha a Senha!");
+				frm.senha.focus();
+				return false;
+			}
+			if(frm.confirmaSenha.value == "" || frm.confirmaSenha.value == null) {
+				alert("Confirme a Senha!");
+				frm.confirmaSenha.focus();
+				return false;
+			}
+			if(frm.confirmaSenha.value != frm.senha.value) {
+				alert("As senhas inseridas não são iguais!");
+				frm.confirmaSenha.focus();
+				return false;
+			}
+			if(frm.secure.value == "")
+			{
+				alert("Entre com o captcha!");
+				frm.secure.focus();
+				return false;		
+			}
+			else {
+				checkcode(frm.secure.value);
+          		return false;
+			}
+		}
+		
+		// Caso tudo esteja correto		
+		if(acao == 1) alert('Cadastramento realizado com sucesso. Você será redirecionado a página inicial, efetue seu login para acessar o sistema.');
+		else if(acao == 2) alert('Aterações realizadas com sucesso. Você será redirecionado a página inicial do cliente!');
+		if(acao == 3) alert('Cadastramento realizado com sucesso.');
+		else if(acao == 4) alert('Aterações realizadas com sucesso.');
+		return true;
 }
 
 </script>

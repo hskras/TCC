@@ -1,5 +1,7 @@
 <?php
 
+if (!isset($_SESSION)) session_start();
+
 include "../uteis/conexao.php";
 
 $nome = trim($_POST['nome']);
@@ -29,6 +31,12 @@ if (!$sql || !$sql2){
 	echo "Ocorreu algum erro ao criar sua conta, por favor entre em contato com o Administrador.";
 }
 
-header("Location: ../index.php?cadastrado=true");
-
+if(!isset($_SESSION['UsuarioNome']))
+{
+	header("Location: ../index.php?cadastrado=true");
+}
+else if($_SESSION['UsuarioNivel'] == 1)
+{
+	header("Location: ../administrador/layoutAdministrador.php?listarClientes=true");
+}
 ?>

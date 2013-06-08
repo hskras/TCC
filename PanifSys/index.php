@@ -10,6 +10,10 @@
 <?php include "uteis/validaFormCliente.js" ?>
 <?php include "uteis/mascaras.js" ?>
 <?php include "uteis/conexao.php" ?>
+<?php
+	session_start(); // Inicia a sessão
+	session_destroy(); // Destrói a sessão limpando todos os valores salvos
+?>
 
 </head>
 <body>
@@ -44,6 +48,9 @@
 			 }
 			 else if(isset($_GET['inicio'])) {
 				@include ('inicio.php'); 
+			 }
+			 else if(isset($_GET['esqueceuSenha'])){
+				@include ('login/esqueceuSenha.php'); 
 			 }
 			 else @include ('inicio.php');					
 			?>
