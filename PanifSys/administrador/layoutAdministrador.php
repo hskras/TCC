@@ -11,6 +11,7 @@
 <?php 
 
 include "../uteis/validaFormCliente.js";
+include "../uteis/validaFormFuncionario.js";
 include "../uteis/mascaras.js";
 include "../uteis/conexao.php";
 
@@ -94,13 +95,25 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 				 $funcionarioAltera = $_GET['editarFuncionario'];
 				@include ('../funcionario/editarFuncionario.php');
 			 }
-			 else if(isset($_GET['excluirCliente'])){
-				 
-				 //ações excluir - estou excluindo no próprio listar, não passa por aqui
+			 else if(isset($_GET['cadastrarProdutos'])){
+				 @include ('../EstoqueProdutos/cadastrarProdutos.php'); 
 			 }
-			 else if(isset($_GET['excluirFuncionario'])){
-				 
-				 //ações excluir - estou excluindo no próprio listar, não passa por aqui
+			 else if(isset($_GET['cadastrarInsumo'])){
+				 @include ('../EstoqueProdutos/cadastrarInsumo.php'); 
+			 }
+			 else if(isset($_GET['listarProdutos'])){
+				 @include ('../EstoqueProdutos/listarProdutos.php');		 
+			 }
+			 else if(isset($_GET['listarEstoque'])){	 
+				@include ('../EstoqueProdutos/listarEstoque.php');
+			 }
+			 else if(isset($_GET['editarInsumo'])){
+				 $insumoAltera = $_GET['editarInsumo'];
+				@include('../EstoqueProdutos/editarInsumo.php');
+			 }
+			 else if(isset($_GET['editarProdutos'])){
+				 $produtoAltera = $_GET['editarProdutos'];
+				@include ('../EstoqueProdutos/editarProdutos.php');
 			 }
 			 	 
 			 else @include ('inicioAdministrador.php'); 
@@ -130,9 +143,8 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 				<ul>
 					<li><a href="../administrador/layoutAdministrador.php?listarClientes=true">Cadastrar Clientes</a></li>
 					<li><a href="../administrador/layoutAdministrador.php?listarFuncionarios=true">Cadastrar Funcionários</a></li>
-					<li><a href="#">Cadastrar Produtos</a></li>
-					<li><a href="#">Controlar Estoque</a></li>
-					<li><a href="#">Cadastrar Pedidos</a></li>										
+					<li><a href="../administrador/layoutAdministrador.php?listarEstoque=true">Controlar Estoque</a></li>
+                    <li><a href="../administrador/layoutAdministrador.php?listarProdutos=true">Cadastrar Produtos</a></li>										
 				</ul>
 			</li>
 			<li> 

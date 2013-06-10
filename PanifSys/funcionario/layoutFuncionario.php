@@ -9,7 +9,9 @@
 <link href="../default.css" rel="stylesheet" type="text/css" />
 <?php 
 include "../uteis/conexao.php";
-
+include "../uteis/validaFormFuncionario.js";
+include "../uteis/validaFormCliente.js";
+include "../uteis/mascaras.js";
 if (!isset($_SESSION)) session_start(); 
 
 $nivel_necessario = 2;
@@ -71,7 +73,17 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] > $nivel_nece
 			 }
 			 else if(isset( $_GET['alterar'])) {	
 				 @include ('editarFuncionario.php'); 
-			 }			  
+			 }	
+			 else if(isset($_GET['listarClientes'])) { 
+				@include('../cliente/listarClientes.php'); 
+			 }	
+			 else if(isset($_GET['cadastrarCliente'])){
+				@include('../cliente/cadastrarCliente.php');
+			 }
+			 else if(isset($_GET['editarCliente'])){
+				 $clienteAltera = $_GET['editarCliente'];
+				@include ('../cliente/editarCliente.php');
+			 }	  
 			 else @include ('inicioFuncionario.php'); 
 			 
 			 ?>
@@ -98,12 +110,9 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] > $nivel_nece
 			<li>
 				<h2><strong>Menu</strong></h2>
 				<ul>
-					<li><a href="#">Opção 1</a></li>
-					<li><a href="#">Opção 2</a></li>
-					<li><a href="#">Opção 3</a></li>
-					<li><a href="#">Opção 4</a></li>
-					<li><a href="#">Opção 5</a></li>
-					<li><a href="#">Opção 6</a></li>					
+					<li><a href="layoutFuncionario.php?alterar=true">Alterar Cadastro</a></li>
+					<li><a href="layoutFuncionario.php?listarClientes=true">Cadastrar Cliente</a></li>
+										
 				</ul>
 			</li>
 			<li>

@@ -35,7 +35,10 @@
   <table width="100%" border="1">
   <tr>
 
-    <td width="79%" align="center">Funcionários</td>
+    <td width="37%" align="center">Nome</td>
+    <td width="15%" align="center">Telefone</td>
+    <td width="13%" align="center">Celular</td>
+    <td width="14%" align="center">Login</td>
     <td colspan="2" align="center">Ação</td>
   </tr>
   
@@ -48,20 +51,20 @@
   
   <tr>
     <td><?php echo $coluna['nome'] ?> </td>
+    <td><?php echo $coluna['telefone'] ?> </td>
+    <td><?php echo $coluna['celular'] ?> </td>
+    <td><?php echo $coluna['login_funcionario'] ?> </td>
     
     <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarFuncionario=<?php echo $coluna['id_funcionario'] ?>">Alterar</a></td>
     <td width="11%" align="center"><a href="../funcionario/excluirFuncionario.php?excluir=<?php echo $coluna['id_funcionario'] ?>"  onclick="return confirm('Tem certeza que deseja excluir esse funcionario?')">Excluir</a></td>
   </tr>
   <?php } ?>
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td colspan="6">&nbsp;</td>
   </tr>
   <tr>
-    <td>Total de funcionários cadastrados: <?php echo $registros ?></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td colspan="6">Total de funcionários: <?php echo $registros ?></td>
+
   </tr>
 </table>
 </div>

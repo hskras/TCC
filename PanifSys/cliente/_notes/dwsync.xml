@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="cadastrarCliente.php" server="31.170.167.77" local="130141003478218647" remote="130141768800000000" />
-<file name="editarCliente.php" server="31.170.167.77" local="130141030601330000" remote="130141768800000000" />
-<file name="efetuaCadastro.php" server="31.170.167.77" local="130140799526223260" remote="130141768800000000" />
-<file name="inicioCliente.php" server="31.170.167.77" local="130140802356605148" remote="130141768800000000" />
-<file name="layoutCliente.php" server="31.170.167.77" local="130140996130148361" remote="130141768800000000" />
-<file name="listarClientes.php" server="31.170.167.77" local="130139864561196405" remote="130141768800000000" />
-<file name="salvaAlteracoes.php" server="31.170.167.77" local="130141030929378763" remote="130141938600000000" />
+<file name="cadastrarCliente.php" server="31.170.167.77" local="130152160445842465" remote="130152130200000000" />
+<file name="editarCliente.php" server="31.170.167.77" local="130152133074316903" remote="130152130200000000" />
+<file name="efetuaCadastro.php" server="31.170.167.77" local="130152155390253302" remote="130152130200000000" />
+<file name="inicioCliente.php" server="31.170.167.77" local="130151994332891348" remote="130152130200000000" />
+<file name="layoutCliente.php" server="31.170.167.77" local="130149506250000000" remote="130152130200000000" />
+<file name="listarClientes.php" server="31.170.167.77" local="130152159065243499" remote="130152130200000000" />
+<file name="salvaAlteracoes.php" server="31.170.167.77" local="130152155055224139" remote="130152130200000000" />
+<file name="excluirCliente.php" server="31.170.167.77" local="130152161946588303" remote="130152130200000000" />
 </dwsync>

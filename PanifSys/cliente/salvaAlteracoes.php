@@ -6,8 +6,6 @@ include "../uteis/conexao.php";
 $nome = trim($_POST['nome']);
 $telefone = trim($_POST['telefone']);
 $celular = trim($_POST['celular']);
-$sexo = trim($_POST['sexo']);
-$dataNascimento = trim($_POST['dataNascimento']);
 $cpf = trim($_POST['cpf']);
 $email = trim($_POST['email']);
 $cep = trim($_POST['cep']);
@@ -20,13 +18,11 @@ $estado = trim($_POST['estado']);
 $login = trim($_POST['login']);
 $senha = trim($_POST['senha']);
 
-$senha_cripto = sha1($senha);
+if($senha != "") $senha_cripto = sha1($senha);
 
 if(@mysql_query("UPDATE clientes SET 
 nome = '$nome',
-sexo = '$sexo',
 cpf = '$cpf',
-data_nascimento = '$dataNascimento',
 endereco = '$endereco',
 numero = '$numero',
 cidade = '$cidade',
@@ -54,22 +50,25 @@ login_cliente = '$login'")){
 	@mysql_close();
 }
 
-if(@mysql_query("UPDATE usuarios_login SET senha = '$senha_cripto' WHERE login = '$login'")){
-
-	if(mysql_affected_rows() == 1){
-		echo "Registro atualizado com sucesso";
-	}	
-
-} else {
-	if(mysql_errno() == 1062) {
-		echo $erros[mysql_errno()];
-		exit;
-	} else {	
-		echo "Erro nao foi possivel efetuar a edição";
-		exit;
-	}	
-	@mysql_close();
-}
+if($senha != "")
+{
+	if(@mysql_query("UPDATE usuarios_login SET senha = '$senha_cripto' WHERE login = '$login'")){
+	
+		if(mysql_affected_rows() == 1){
+			echo "Registro atualizado com sucesso";
+		}	
+	
+	} else {
+		if(mysql_errno() == 1062) {
+			echo $erros[mysql_errno()];
+			exit;
+		} else {	
+			echo "Erro nao foi possivel efetuar a edição";
+			exit;
+		}	
+		@mysql_close();
+	}
+} //fim if senha
 
 if($_SESSION['UsuarioNivel'] == 3)
 {
@@ -78,6 +77,10 @@ if($_SESSION['UsuarioNivel'] == 3)
 else if($_SESSION['UsuarioNivel'] == 1)
 {
 	header("Location: ../administrador/layoutAdministrador.php?listarClientes=true");
+}
+else if($_SESSION['UsuarioNivel'] == 2)
+{
+	header("Location: ../funcionario/layoutFuncionario.php?listarClientes=true");
 }
 
 ?>

@@ -1,72 +1,51 @@
 <?php
 	if (!isset($_SESSION)) session_start();
-	// captcha width
-	$captcha_w = 150;
-	// captcha height
-	$captcha_h = 50;
-	// minimum font size; each operation element changes size
-	$min_font_size = 12;
-	// maximum font size
-	$max_font_size = 18;
-	// rotation angle
-	$angle = 20;
-	// background grid size
-	$bg_size = 13;
-	// path to font - needed to display the operation elements
-	$font_path = 'fonts/courbd.ttf';
-	// array of possible operators
-	// first number random value; keep it lower than $second_num
+	
+	$captcha_w = 150; // captcha width	
+	$captcha_h = 50; // captcha height
+	$min_font_size = 12; //tamanho minimo fonte
+	$max_font_size = 18; //tamanho máximo fonte
+	$angle = 20; //angulo de inclinação	
+	$bg_size = 13; // tamanho do background grid
+	$font_path = 'fonts/courbd.ttf'; //caminho da fonte
+
+	// Sorteia os números que serão exibidos
 	$first_num = rand(1,9);
-	// second number random value
 	$second_num = rand(1,9);
 	$third_num = rand(1,9);
 	$fourth_num = rand(1,9);	
-	/*===============================================================
-		From here on you may leave the code intact unless you want
-		or need to make it specific changes. 
-	  ===============================================================*/
 	
-	//$expression = $second_num.$operators[0].$first_num;
-	/*
-		operation result is stored in $session_var
-	*/
+	//guarda os valores sorteados na variavel
 	$session_var = $second_num.$third_num.$fourth_num.$first_num;
-	/* 
-		save the operation result in session to make verifications
-	*/
+	
+	//Guarda na sessão a sequencia de números para depois fazer as verificações
 	$_SESSION['security_number'] = $session_var;
 	$_SESSION['UsuarioNivel'] = 4;
 	
-	/*
-		start the captcha image
-	*/
+	// Cria a imagem
 	$img = imagecreate( $captcha_w, $captcha_h );
-	/*
-		Some colors. Text is $black, background is $white, grid is $grey
-	*/
+	
+	//Texto preto, fundo branco  e grid cinza
 	$black = imagecolorallocate($img,0,0,0);
 	$white = imagecolorallocate($img,255,255,255);
 	$grey = imagecolorallocate($img,215,215,215);
-	/*
-		make the background white
-	*/
+	
+	//faz o fundo ficar branco
 	imagefill( $img, 0, 0, $white );	
-	/* the background grid lines - vertical lines */
+	
+	//linha verticais do fundo
 	for ($t = $bg_size; $t<$captcha_w; $t+=$bg_size){
 		imageline($img, $t, 0, $t, $captcha_h, $grey);
 	}
-	/* background grid - horizontal lines */
+	//linhas horizontais do fundo
 	for ($t = $bg_size; $t<$captcha_h; $t+=$bg_size){
 		imageline($img, 0, $t, $captcha_w, $t, $grey);
 	}
 	
-	/* 
-		this determinates the available space for each operation element 
-		it's used to position each element on the image so that they don't overlap
-	*/
+	//posiciona os números na imagem
 	$item_space = $captcha_w/4;
 	
-	/* first number */
+	//primeiro número
 	imagettftext(
 		$img,
 		rand(
@@ -80,8 +59,7 @@
 		$font_path,
 		$second_num);
 	
-	
-	/* second number */
+	//segundo número
 	imagettftext(
 		$img,
 		rand(
@@ -94,7 +72,8 @@
 		$black,
 		$font_path,
 		$third_num);
-	/* third number */
+		
+	//terceiro número
 	imagettftext(
 		$img,
 		rand(
@@ -107,7 +86,8 @@
 		$black,
 		$font_path,
 		$fourth_num);
-	/* fourth number */
+		
+	//quarto número
 	imagettftext(
 		$img,
 		rand(
@@ -121,10 +101,10 @@
 		$font_path,
 		$first_num);
 		
-	/* image is .jpg */
+	//imagem é jpeg
 	header("Content-type:image/jpeg");
-	/* name is secure.jpg */
+	// nome: secure.jpg */
 	header("Content-Disposition:inline ; filename=secure.jpg");
-	/* output image */
+	//imagem resultante
 	imagejpeg($img);
 ?>

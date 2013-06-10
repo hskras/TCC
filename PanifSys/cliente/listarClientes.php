@@ -24,7 +24,12 @@
 
 <table width="100%" border="0">
 <tr>
+
+	<?php if($_SESSION['UsuarioNivel'] == 1){ ?>
     <td width="79%" align="left"><a href="../administrador/layoutAdministrador.php?cadastrarCliente=true">Inserir Novo Cliente</a></td>
+    <?php } else if($_SESSION['UsuarioNivel'] == 2){ ?>
+    <td width="79%" align="left"><a href="../funcionario/layoutFuncionario.php?cadastrarCliente=true">Inserir Novo Cliente</a></td>
+    <?php } ?>
     
   </tr>
   <tr>
@@ -35,7 +40,9 @@
   <table width="100%" border="1">
   <tr>
 
-    <td width="79%" align="center">Clientes</td>
+    <td width="43%" align="center">Nome</td>
+    <td width="20%" align="center">Telefone</td>
+    <td width="16%" align="center">Login</td>
     <td colspan="2" align="center">Ação</td>
   </tr>
   
@@ -48,19 +55,24 @@
   
   <tr>
     <td><?php echo $coluna['nome'] ?> </td>
+    <td><?php echo $coluna['telefone'] ?> </td>
+    <td><?php echo $coluna['login_cliente'] ?> </td>
+   
+    <?php if($_SESSION['UsuarioNivel'] == 1){ ?>
     <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarCliente=<?php echo $coluna['id_cliente'] ?>">Alterar</a></td>
-    <td width="11%" align="center"><a href="../administrador/layoutAdministrador.php?excluirCliente=<?php echo $coluna['id_cliente'] ?>">Excluir</a></td>
+   <?php } else if($_SESSION['UsuarioNivel'] == 2){ ?>
+    <td width="10%" align="center"><a href="../funcionario/layoutFuncionario.php?editarCliente=<?php echo $coluna['id_cliente'] ?>">Alterar</a></td>
+   <?php } ?>
+   
+    <td width="11%" align="center"><a href="../cliente/excluirCliente.php?excluir=<?php echo $coluna['id_cliente'] ?>" onclick="return confirm('Tem certeza que deseja excluir esse cliente?')">Excluir</a></td>
   </tr>
   <?php } ?>
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td colspan="5">&nbsp;</td>
   </tr>
   <tr>
-    <td>Total de clientes cadastrados: <?php echo $registros ?></td>
-    <td></td>
-    <td>&nbsp;</td>
+    <td colspan="5">Total de clientes: <?php echo $registros ?></td>
+
   </tr>
 </table>
 </div>

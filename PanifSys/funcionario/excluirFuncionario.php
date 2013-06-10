@@ -5,7 +5,7 @@ include "../uteis/conexao.php";
 $idfunc = $_GET['excluir'];
 
 $sql0 = mysql_query("SELECT * FROM funcionarios where id_funcionario = '$idfunc'");
-$coluna = mysql_fetch_array($sql);
+$coluna = mysql_fetch_array($sql0);
 $login = $coluna['login_funcionario'];
 
 $sql = mysql_query("DELETE FROM funcionarios where id_funcionario = '$idfunc'");

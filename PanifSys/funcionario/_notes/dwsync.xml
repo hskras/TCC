@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="layoutFuncionario.php" server="31.170.167.77" local="130139054818410508" remote="130141768800000000" />
-<file name="listarFuncionarios.php" server="31.170.167.77" local="130141911929656450" remote="130141879200000000" />
+<file name="layoutFuncionario.php" server="31.170.167.77" local="130152162985947751" remote="130152130200000000" />
+<file name="listarFuncionarios.php" server="31.170.167.77" local="130152083838790792" remote="130152130200000000" />
+<file name="cadastrarFuncionario.php" server="31.170.167.77" local="130152086557836313" remote="130152130200000000" />
+<file name="editarFuncionario.php" server="31.170.167.77" local="130152147289919989" remote="130152130200000000" />
+<file name="efetuaCadastroFunc.php" server="31.170.167.77" local="130152140461469424" remote="130152130200000000" />
+<file name="excluirFuncionario.php" server="31.170.167.77" local="130152049014518958" remote="130152130200000000" />
+<file name="inicioFuncionario.php" server="31.170.167.77" local="130141857760000000" remote="130152130200000000" />
+<file name="salvaAlteracoesFunc.php" server="31.170.167.77" local="130152148138808543" remote="130152130200000000" />
 </dwsync>

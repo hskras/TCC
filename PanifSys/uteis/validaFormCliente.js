@@ -67,6 +67,7 @@ function validaForm(frm,acao) {
               frm.secure.focus();
               return false;
               }
+			  if(acao == 1) alert('Cadastramento realizado com sucesso. Você será redirecionado a página inicial, efetue seu login para acessar o sistema.');
 			  //alert('Captcha ok');
               frm.submit();
            }
@@ -80,7 +81,7 @@ function validaForm(frm,acao) {
 
 		// verifica se o campo nome foi preenchido e se ele contém no mínimo três caracteres.
 		if(frm.nome.value == "" || frm.nome.value == null || frm.nome.value.length < 3) {
-			alert("Preencha seu nome!");
+			alert("Preencha o nome!");
 			frm.nome.focus(); //coloca foco no campo			
 			return false; //não deixa enviar o form
 		}
@@ -88,11 +89,6 @@ function validaForm(frm,acao) {
 		if(frm.telefone.value == "" || frm.telefone.value == null || frm.telefone.value.length < 13) {
 			alert("Preencha o telefone corretamente!");
 			frm.telefone.focus();
-			return false;
-		}
-		if(frm.dataNascimento.value == "" || frm.dataNascimento.value == null || frm.dataNascimento.value.length < 10) {
-			alert("Preencha a data de Nascimento corretamente!");
-			frm.dataNascimento.focus();
 			return false;
 		}
 		
@@ -129,7 +125,7 @@ function validaForm(frm,acao) {
 		}
 		
 		if(frm.numero.value == "" || frm.numero.value == null) {
-			alert("Preencha o número do endereço corretamente!");
+			alert("Preencha o Número corretamente!");
 			frm.numero.focus();
 			return false;
 		}
@@ -141,7 +137,7 @@ function validaForm(frm,acao) {
 		}
 		
 		if(frm.bairro.value == "" || frm.bairro.value == null) {
-			alert("Preencha o bairro corretamente!");
+			alert("Preencha o Bairro corretamente!");
 			frm.bairro.focus();
 			return false;
 		}
@@ -158,7 +154,7 @@ function validaForm(frm,acao) {
 			return false;
 		}
 		
-		if(acao == 1){
+		if(acao == 1){ //novo cadastro
 			if(frm.senha.value == "" || frm.senha.value == null) {
 				alert("Preencha a Senha!");
 				frm.senha.focus();
@@ -184,13 +180,12 @@ function validaForm(frm,acao) {
 				checkcode(frm.secure.value);
           		return false;
 			}
-		}
+		} //fim acao = 1
 		
 		// Caso tudo esteja correto		
-		if(acao == 1) alert('Cadastramento realizado com sucesso. Você será redirecionado a página inicial, efetue seu login para acessar o sistema.');
-		else if(acao == 2) alert('Aterações realizadas com sucesso. Você será redirecionado a página inicial do cliente!');
-		if(acao == 3) alert('Cadastramento realizado com sucesso.');
-		else if(acao == 4) alert('Aterações realizadas com sucesso.');
+		if(acao == 2) alert('Alterações realizadas com sucesso. Você será redirecionado a página inicial do cliente!');
+		else if(acao == 3) alert('Cadastramento realizado com sucesso.');
+		else if(acao == 4) alert('Alterações realizadas com sucesso.');
 		return true;
 }
 

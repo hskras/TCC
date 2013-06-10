@@ -42,15 +42,6 @@ function reloadCaptcha()
 }
 // ]]></script>
 
-<script type="text/javascript">
-
-
-
-
-
-
-</script>
-
 </head>
 
 <body>
@@ -60,12 +51,12 @@ function reloadCaptcha()
 <div class="formulario">
 
 <?php
-if($_SESSION['UsuarioNivel'] != 1 || $_SESSION['UsuarioNivel'] != 2)
+if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 2)
 { ?>
 <form name="frmCadCliente" id="formulariocliente" method="post" action="cliente/efetuaCadastro.php" onsubmit="return validaForm(this,1);">
 <?php 
 } 
-else if($_SESSION['UsuarioNivel'] == 1){ ?>
+else if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2){ ?>
 <form name="frmCadCliente" id="formulariocliente" method="post" action="../cliente/efetuaCadastro.php" onsubmit="return validaForm(this,3);">
 <?php } ?>
    <table width="100%" border="0">
@@ -82,26 +73,23 @@ else if($_SESSION['UsuarioNivel'] == 1){ ?>
     <tr>
       <td align="right">*Nome Completo:</td>
       <td><label for="nome"></label>
-      <input name="nome" type="text" id="nome" value="" size="50" maxlength="50" /></td>
-      <td align="right">&nbsp;</td>
-      <td></td>
+        <input name="nome" type="text" id="nome" value="" size="50" maxlength="50" /></td>
+      <td align="right">*CPF:</td>
+      <td><input name="cpf" type="text" id="cpf" size="15" value="" maxlength="14" onkeypress="return valCPF(event,this);return false;" /></td>
     </tr>
     <tr>
       <td align="right">*Telefone:</td>
       <td><label for="telefone"></label>
         <input name="telefone" type="text" value="" id="telefone" onkeypress="return valPHONE(event,this); return false;" size="15" maxlength="13" /></td>
       
-      <td align="right">*Data de Nascimento:</td>
-      <td align="left"><label for="dataNascimento"></label>
-      <input name="dataNascimento" type="text" value="" id="dataNascimento" onkeypress="return valDATA(event,this); return false;" size="15" maxlength="10"/></td>
+      <td align="right">Celular:</td>
+      <td><input name="celular" type="text" value="" id="celular" size="15" maxlength="13" onkeypress="return valPHONE(event,this); return false;"/></td>
     </tr>
     <tr>
-      <td align="right">Celular:</td>
-      <td align="left"><label for="celular"></label>
-        <input name="celular" type="text" value="" id="celular" size="15" maxlength="13" onkeypress="return valPHONE(event,this); return false;"/></td>
-      <td align="right">*CPF:</td>
-      <td><label for="cpf"></label>
-        <input name="cpf" type="text" id="cpf" size="15" value="" maxlength="14" onkeypress="return valCPF(event,this);return false;" /></td>
+      <td>&nbsp;</td>
+      <td></td>
+      <td>&nbsp;</td>
+      <td></td>
       </tr>
     <tr>
       <td align="right">*Email:</td>

@@ -20,21 +20,38 @@
 <body>
 
 <?php
-$lg = $funcionarioAltera;
-$sql = mysql_query("SELECT * FROM funcionarios where id_funcionario = '$lg'");
-$coluna = mysql_fetch_array($sql);
-$loginFuncionario = $coluna['login_funcionario'];
+if($_SESSION['UsuarioNivel'] == 1 )
+{
+	$lg = $funcionarioAltera;
+	$sql = mysql_query("SELECT * FROM funcionarios where id_funcionario = '$lg'");
+	$coluna = mysql_fetch_array($sql);
+	$loginFuncionario = $coluna['login_funcionario'];
+	
+	$sql2 = mysql_query("SELECT * FROM usuarios_login where login = '$loginFuncionario'");
+	$coluna2 = mysql_fetch_array($sql2);
+}
+else if($_SESSION['UsuarioNivel'] == 2)
+{ 
+	$usuarioLogado = $_SESSION['UsuarioLogin'];
+	
+	$sql = mysql_query("SELECT * FROM funcionarios where login_funcionario = '$usuarioLogado'");
+	$coluna = mysql_fetch_array($sql);
+	
+	$sql2 = mysql_query("SELECT * FROM usuarios_login where login = '$usuarioLogado'");
+	$coluna2 = mysql_fetch_array($sql2);
 
-$sql2 = mysql_query("SELECT * FROM usuarios_login where login = '$loginFuncionario'");
-$coluna2 = mysql_fetch_array($sql2);
- 
+}
+
 ?>
 
 <div id="fundocli">
 
 <div class="formulario">
-
-<form name="frmCadFuncionario" id="formulariofuncionario" method="post" action="../funcionario/salvaAlteracoesFunc.php?id=<?php echo $coluna['id_funcionario'] ?>" onsubmit="return validaForm(this,2);">
+<?php if($_SESSION['UsuarioNivel'] == 1){ ?>
+	<form name="frmCadFuncionario" id="formulariofuncionario" method="post" action="../funcionario/salvaAlteracoesFunc.php?id=<?php echo $coluna['id_funcionario'] ?>" onsubmit="return validaFormFunc(this,2);">
+<?php } else if($_SESSION['UsuarioNivel'] == 2){ ?>
+	<form name="frmCadFuncionario" id="formulariofuncionario" method="post" action="salvaAlteracoesFunc.php" onsubmit="return validaFormFunc(this,2);">
+<?php } ?>
    <table width="100%" border="0">
     <tr>
       <td width="9%">&nbsp;</td>
@@ -52,12 +69,6 @@ $coluna2 = mysql_fetch_array($sql2);
       <input name="nome" type="text" id="nome" value="<?php echo $coluna['nome'] ?>" size="50" maxlength="50" /></td>
       <td align="right">&nbsp;</td>
       <td><label for="sexo"></label></td>
-    </tr>
-    <tr>
-      <td align="right">*CPF:</td>
-      <td><input name="cpf" type="text" id="cpf" size="15" value="<?php echo $coluna['cpf'] ?>" maxlength="14" onkeypress="return valCPF(event,this);return false;" /></td>
-      <td align="right">&nbsp;</td>
-      <td align="left">&nbsp;</td>
     </tr>
     <tr>
       <td align="right">*Telefone:</td>
@@ -96,7 +107,7 @@ $coluna2 = mysql_fetch_array($sql2);
     <tr>
       <td align="right">*Login:</td>
       <td><label for="login"></label>
-      <input name="login" type="text" id="login" size="25" maxlength="20" value="<?php echo $coluna['login_funcionario'] ?>" /></td>
+      <input name="login" type="text" id="login" size="25" maxlength="20" value="<?php echo $coluna['login_funcionario'] ?>" readonly="readonly" /></td>
       <td>&nbsp;</td>
       <td align="left">&nbsp;</td>
     </tr>

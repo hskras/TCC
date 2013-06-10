@@ -7,7 +7,6 @@ include "../uteis/conexao.php";
 $nome = trim($_POST['nome']);
 $telefone = trim($_POST['telefone']);
 $celular = trim($_POST['celular']);
-$dataNascimento = trim($_POST['dataNascimento']);
 $cpf = trim($_POST['cpf']);
 $email = trim($_POST['email']);
 $cep = trim($_POST['cep']);
@@ -22,8 +21,8 @@ $senha = trim($_POST['senha']);
 
 $senha_cripto = sha1($senha);
 
-$sql = mysql_query("INSERT INTO clientes (nome,cpf,data_nascimento,endereco,numero,cidade,estado,cep,complemento,bairro,telefone,celular,email,login_cliente) 
-VALUES ('$nome', '$cpf', '$dataNascimento', '$endereco', '$numero','$cidade','$estado','$cep','$complemento','$bairro','$telefone','$celular','$email','$login')") or die( mysql_error() );
+$sql = mysql_query("INSERT INTO clientes (nome,cpf,endereco,numero,cidade,estado,cep,complemento,bairro,telefone,celular,email,login_cliente) 
+VALUES ('$nome', '$cpf', '$endereco', '$numero','$cidade','$estado','$cep','$complemento','$bairro','$telefone','$celular','$email','$login')") or die( mysql_error() );
 
 $sql2 = mysql_query("INSERT INTO usuarios_login (login,senha,nivel_acesso,ativo) VALUES ('$login','$senha_cripto','3','1')") or die( mysql_error() );
 
@@ -38,5 +37,9 @@ if(!isset($_SESSION['UsuarioNome']))
 else if($_SESSION['UsuarioNivel'] == 1)
 {
 	header("Location: ../administrador/layoutAdministrador.php?listarClientes=true");
+}
+else if($_SESSION['UsuarioNivel'] == 2)
+{
+	header("Location: ../funcionario/layoutFuncionario.php?listarClientes=true");
 }
 ?>

@@ -4,18 +4,39 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Cadastrar Cliente</title>
-<? include "../uteis/validaFormCliente.js"; ?>
+
 <style type="text/css">
 #form1 table tr td strong {
 	color: #003;
 }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" language="javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#cep").blur(function(e){
+		if($.trim($("#cep").val()) != ""){
+			$.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+$("#cep").val(), function(){
+				if(resultadoCEP["resultado"]){
+					$("#endereco").val(unescape(resultadoCEP["tipo_logradouro"])+": "+unescape(resultadoCEP["logradouro"]));
+					$("#bairro").val(unescape(resultadoCEP["bairro"]));
+					$("#cidade").val(unescape(resultadoCEP["cidade"]));
+					$("#estado").val(unescape(resultadoCEP["uf"]));
+				}else{
+					alert("Não foi possivel encontrar o endereço");
+				}
+			});				
+		}		
+	})
+});
+		
+</script>
 
 <link href="../default.css" rel="stylesheet" type="text/css" />
 <? if (!isset($_SESSION)) session_start(); ?>
 <? include "../uteis/conexao.php" ?>
 <?php include "../uteis/mascaras.js" ?>
+<? include "../uteis/validaFormCliente.js" ?>
 </head>
 
 <body>
@@ -26,7 +47,7 @@
 
 <?php
 
-if($_SESSION['UsuarioNivel'] == 1)
+if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2)
 {
 	$lg = $clienteAltera;
 
@@ -55,7 +76,7 @@ if($_SESSION['UsuarioNivel'] == 3 )
 { ?>	
 <form name="frmCadCliente" id="formulariocliente" method="post" action="salvaAlteracoes.php" onsubmit="return validaForm(this,2);">
 <?php } 
-else if($_SESSION['UsuarioNivel'] == 1){ ?>
+else if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2){ ?>
 <form name="frmCadCliente" id="formulariocliente" method="post" action="../cliente/salvaAlteracoes.php" onsubmit="return validaForm(this,4);">
 <?php } ?>
    <table width="100%" border="0">
@@ -73,25 +94,22 @@ else if($_SESSION['UsuarioNivel'] == 1){ ?>
       <td align="right">*Nome Completo:</td>
       <td><label for="nome"></label>
       <input name="nome" type="text" id="nome" value="<?php echo $coluna['nome'] ?>" size="50" maxlength="50" /></td>
-      <td align="right">&nbsp;</td>
-      <td></td>
+      <td align="right">*CPF:</td>
+      <td><input name="cpf" type="text" id="cpf" size="15" value="<?php echo $coluna['cpf'] ?>" maxlength="14" onkeypress="return valCPF(event,this);return false;" /></td>
     </tr>
     <tr>
       <td align="right">*Telefone:</td>
       <td><label for="telefone"></label>
         <input name="telefone" type="text" value="<?php echo $coluna['telefone'] ?>" id="telefone" onkeypress="return valPHONE(event,this); return false;" size="15" maxlength="13" /></td>
       
-      <td align="right">*Data de Nascimento:</td>
-      <td align="left"><label for="dataNascimento"></label>
-      <input name="dataNascimento" type="text" value="<?php echo $coluna['dataNascimento'] ?>" id="dataNascimento" onkeypress="return valDATA(event,this); return false;" size="15" maxlength="10"/></td>
+      <td align="right">Celular:</td>
+      <td><input name="celular" type="text" value="<?php echo $coluna['celular'] ?>" id="celular" size="15" maxlength="13" onkeypress="return valPHONE(event,this); return false;"/></td>
     </tr>
     <tr>
-      <td align="right">Celular:</td>
-      <td align="left"><label for="celular"></label>
-        <input name="celular" type="text" value="<?php echo $coluna['celular'] ?>" id="celular" size="15" maxlength="13" onkeypress="return valPHONE(event,this); return false;"/></td>
-      <td align="right">*CPF:</td>
-      <td><label for="cpf"></label>
-        <input name="cpf" type="text" id="cpf" size="15" value="<?php echo $coluna['cpf'] ?>" maxlength="14" onkeypress="return valCPF(event,this);return false;" /></td>
+      <td align="right">&nbsp;</td>
+      <td align="left"></td>
+      <td align="right">&nbsp;</td>
+      <td></td>
       </tr>
     <tr>
       <td align="right">*Email:</td>

@@ -22,11 +22,11 @@
 
 <div class="formulario">
 
-<form name="frmCadFuncionario" id="formulariofuncionario" method="post" action="../funcionario/efetuaCadastroFunc.php" onsubmit="return validaForm(this,1);">
+<form name="frmCadFuncionario" id="formulariofuncionario" method="post" action="../funcionario/efetuaCadastroFunc.php" onsubmit="return validaFormFunc(this,1);">
    <table width="100%" border="0">
     <tr>
       <td width="9%">&nbsp;</td>
-      <td colspan="3" align="center"><strong>Cadastrar Novo Funcionário</strong></td>
+      <td colspan="3" align="center"><strong>Novo Funcionário</strong></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
@@ -40,12 +40,6 @@
       <input name="nome" type="text" id="nome" value="" size="50" maxlength="50" /></td>
       <td align="right">&nbsp;</td>
       <td><label for="sexo"></label></td>
-    </tr>
-    <tr>
-      <td align="right">*CPF:</td>
-      <td><input name="cpf" type="text" id="cpf" size="15" value="" maxlength="14" onkeypress="return valCPF(event,this);return false;" /></td>
-      <td align="right">&nbsp;</td>
-      <td align="left">&nbsp;</td>
     </tr>
     <tr>
       <td align="right">*Telefone:</td>
@@ -110,7 +104,7 @@
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Efetivar Cadastro" /></td>
+      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Efetivar Cadastramento" /></td>
     </tr>
   </table>
 </form>
