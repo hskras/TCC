@@ -17,7 +17,7 @@
 <body>
 <div id="fundo"> 
 
-<div align="center"><strong>Usuários Cadastrados</strong><br />
+<div align="center"><strong>Clientes Cadastrados</strong><br />
   <br />
 </div>
 <div id="usuariosBD">
@@ -33,6 +33,18 @@
     
   </tr>
   <tr>
+    <td align="center">&nbsp;</td>
+    <td colspan="2" align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left"><form id="form1" name="form1" method="post" action="layoutAdministrador.php?pesquisarCliente">
+      <label for="buscaCliente"></label>
+      <input name="buscaCliente" type="text" id="buscaCliente" size="40" maxlength="40" />
+      <input type="submit" name="pesquisar" id="pesquisar" value="Pesquisar" />
+    </form></td>
+    <td colspan="2" align="center">&nbsp;</td>
+  </tr>
+  <tr>
     <td width="79%" align="center">&nbsp;</td>
     <td colspan="2" align="center">&nbsp;</td>
   </tr>
@@ -45,28 +57,57 @@
     <td width="16%" align="center">Login</td>
     <td colspan="2" align="center">Ação</td>
   </tr>
+	
+	<?php if ($pesqCliente == ""){ ?>
   
-  <?php 
+  	<?php 
   	$sql = mysql_query("SELECT * FROM clientes ORDER BY nome");
 	$registros = mysql_num_rows($sql); 
   	while($coluna = mysql_fetch_array($sql)){
 		$id_cliente = $coluna['id_cliente'];
 	?>
-  
   <tr>
     <td><?php echo $coluna['nome'] ?> </td>
     <td><?php echo $coluna['telefone'] ?> </td>
     <td><?php echo $coluna['login_cliente'] ?> </td>
+   
+   
    
     <?php if($_SESSION['UsuarioNivel'] == 1){ ?>
     <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarCliente=<?php echo $coluna['id_cliente'] ?>">Alterar</a></td>
    <?php } else if($_SESSION['UsuarioNivel'] == 2){ ?>
     <td width="10%" align="center"><a href="../funcionario/layoutFuncionario.php?editarCliente=<?php echo $coluna['id_cliente'] ?>">Alterar</a></td>
    <?php } ?>
-   
+      
     <td width="11%" align="center"><a href="../cliente/excluirCliente.php?excluir=<?php echo $coluna['id_cliente'] ?>" onclick="return confirm('Tem certeza que deseja excluir esse cliente?')">Excluir</a></td>
+  
   </tr>
-  <?php } ?>
+  <?php } } else {
+	
+  	$sql = mysql_query("SELECT * FROM clientes where nome like '%$pesqCliente%' ORDER BY nome");
+	$registros = mysql_num_rows($sql); 
+  	while($coluna = mysql_fetch_array($sql)){
+		$id_cliente = $coluna['id_cliente']; ?>
+<tr>
+	<?php if($registros > 0) {
+	  ?>
+      <td><?php echo $coluna['nome'] ?> </td>
+      <td><?php echo $coluna['telefone'] ?> </td>
+      <td><?php echo $coluna['login_cliente'] ?> </td>
+      <?php } else { echo "Não foi encontrado nenhum cliente com esse nome"; } ?>
+    
+    <?php if($_SESSION['UsuarioNivel'] == 1){ ?>
+    <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarCliente=<?php echo $coluna['id_cliente'] ?>">Alterar</a></td>
+   <?php } else if($_SESSION['UsuarioNivel'] == 2){ ?>
+    <td width="10%" align="center"><a href="../funcionario/layoutFuncionario.php?editarCliente=<?php echo $coluna['id_cliente'] ?>">Alterar</a></td>
+   <?php } ?>
+      
+    <td width="11%" align="center"><a href="../cliente/excluirCliente.php?excluir=<?php echo $coluna['id_cliente'] ?>" onclick="return confirm('Tem certeza que deseja excluir esse cliente?')">Excluir</a></td>
+     </tr>
+    <?php } } ?>
+    
+ 
+  
   <tr>
     <td colspan="5">&nbsp;</td>
   </tr>

@@ -24,7 +24,7 @@
 
 <div class="formulario">
 
-<form name="frmCadProduto" id="formularioproduto" method="post" action="../EstoqueProdutos/efetuaCadastroProduto.php" enctype="multipart/form-data" >
+<form name="frmCadProduto" id="formularioproduto" method="post" action="../EstoqueProdutos/efetuaCadastroProduto.php" enctype="multipart/form-data" onsubmit="return validaFormProd(this,1);" >
 
    <table width="100%" border="0">
     <tr>
@@ -74,7 +74,7 @@
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Efetivar Cadastramento" onclick="return alert('Produto adicionado!')" /></td>
+      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Efetivar Cadastramento" /></td>
     </tr>
   </table>
 </form>

@@ -17,14 +17,14 @@
 <body>
 <div id="fundo"> 
 
-<div align="center"><strong>Estoque</strong><br />
+<div align="center"><strong>Insumos</strong><br />
   <br />
 </div>
 <div id="produtosBD">
 
 <table width="100%" border="0">
 <tr>
-    <td width="79%" align="left"><a href="../administrador/layoutAdministrador.php?cadastrarEstoque=true">Inserir Novo Insumo Em Estoque</a></td>   
+    <td width="79%" align="left"><a href="../administrador/layoutAdministrador.php?cadastrarInsumo=true">Inserir Novo Insumo</a></td>   
   </tr>
   <tr>
     <td width="79%" align="center">&nbsp;</td>
@@ -35,25 +35,22 @@
   <tr>
 
     <td width="43%" align="center">Insumo</td>
-    <td width="20%" align="center">Quantidade</td>
-    <td width="16%" align="center">Quantidade Mínima</td>
     <td colspan="2" align="center">Ação</td>
   </tr>
   
   <?php 
-  	$sql = mysql_query("SELECT * FROM estoque e,insumos i where e.id_insumo = i.id_insumo ORDER BY i.insumo");
+  	$sql = mysql_query("SELECT * FROM insumos ORDER BY insumo");
 	$registros = mysql_num_rows($sql); 
   	while($coluna = mysql_fetch_array($sql)){
+		$id_insumo = $coluna['id_insumo'];
 	?>
   
   <tr>
     <td><?php echo $coluna['insumo'] ?> </td>
-    <td><?php echo $coluna['quantidade']." ".$coluna['unidade_medida'] ?> </td>
-    <td><?php echo $coluna['quantidade_minima']." ".$coluna['unidade_medida'] ?> </td>
    
-    <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarEstoque=<?php echo $coluna['id_insumo'] ?>">Alterar</a></td>
+    <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarInsumo=<?php echo $coluna['id_insumo'] ?>">Alterar</a></td>
       
-    <td width="11%" align="center"><a href="../EstoqueProdutos/excluirEstoque.php?excluir=<?php echo $coluna['id_insumo'] ?>" onclick="return confirm('Tem certeza que deseja excluir esse insumo do estoque?')">Excluir</a></td>
+    <td width="11%" align="center"><a href="../EstoqueProdutos/excluirInsumo.php?excluir=<?php echo $coluna['id_insumo'] ?>" onclick="return confirm('Tem certeza que deseja excluir esse insumo?')">Excluir</a></td>
   </tr>
   <?php } ?>
   <tr>

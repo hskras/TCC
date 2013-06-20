@@ -56,7 +56,7 @@
   <tr>
     <td><?php echo $coluna['produto'] ?> </td>
     <td><?php echo $coluna['descricao'] ?> </td>
-    <td><?php echo $coluna['preco'] ?> R$</td>
+    <td align="right"><?php echo $coluna['preco'] ?> R$</td>
    
     <?php if($_SESSION['UsuarioNivel'] == 1){ ?>
     <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarProdutos=<?php echo $coluna['id_produto'] ?>">Alterar</a></td>

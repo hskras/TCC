@@ -6,7 +6,6 @@
 <title>Editar Insumo</title>
 
 <?php if (!isset($_SESSION)) session_start(); ?>
-<?php include "../uteis/validaFormInsumo.js" ?>
 <style type="text/css">
 #form1 table tr td strong {
 	color: #003;
@@ -20,11 +19,24 @@ if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2)
 {
 	$id = $insumoAltera;
 
-	$sql = mysql_query("SELECT * FROM estoque where id_insumo = '$id'");
+	$sql = mysql_query("SELECT * FROM insumos where id_insumo = '$id'");
 	$coluna = mysql_fetch_array($sql);
 
 }
 ?>
+<script type="text/javascript">
+function validaFormIns(frm,acao) {
+
+	if(frm.insumo.value == "" || frm.insumo.value == null || frm.insumo.value.length < 3) {
+		alert("Preencha o nome do insumo!");
+		frm.insumo.focus(); //coloca foco no campo			
+		return false; //não deixa enviar o form
+	}
+	if(acao == 1) alert('Insumo incluido com sucesso.');
+	else if(acao == 2) alert('Insumo alterado com sucesso.');
+	return true;
+}
+</script>
 </head>
 
 <body>
@@ -33,7 +45,7 @@ if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2)
 
 <div class="formulario">
 
-<form name="frmCadInsumo" id="formularioinsumo" method="post" action="../EstoqueProdutos/salvaAlteracoesInsumo.php?editarInsumo=<?php echo $id ?>" >
+<form name="frmCadInsumo" id="formularioinsumo" method="post" action="../EstoqueProdutos/salvaAlteracoesInsumo.php?editarInsumo=<?php echo $id ?>" onsubmit="return validaFormIns(this,2);">
 
    <table width="100%" border="0">
     <tr>
@@ -53,45 +65,14 @@ if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2)
       
     </tr>
     <tr>
-      <td align="right">*Quantidade no Estoque:</td>
-      <td><label for="quantidade"></label>
-        <input type="text" name="quantidade" id="quantidade" value="<?php echo $coluna['quantidade'] ?>" size="10" maxlength="10" /></td>
-      
-      <td align="right">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
       
     </tr>
     <tr>
-      <td align="right">*Quantidade Mínima:</td>
-      <td><label for="quantidade_minima"></label>
-        <input type="text" name="quantidade_minima" id="quantidade_minima" value="<?php echo $coluna['quantidade_minima'] ?>" size="10" maxlength="10" /></td>
-      <td>&nbsp;</td>
-      
+      <td colspan="4" align="center"><input type="submit" name="enviar" id="enviar" value="Salvar Alterações" /></td>
       </tr>
-    <tr>
-      <td align="right">*Unidade de Medida:</td>
-      <td><label for="unidade"></label>
-        <select name="unidade" id="unidade">
-        	<option><?php echo $coluna['unidade_medida'] ?></option>
-            <option value="Unidades">Unidades</option>
-            <option value="Caixas">Caixas</option>
-            <option value="Litros">Litros</option>
-            <option value="Mililitros">Mililitros</option>
-            <option value="Kilogramas">Kilogramas</option>
-            <option value="Gramas">Gramas</option>
-        </select></td>
-      <td>&nbsp;</td>
-      
-      </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Salvar Alterações" onclick="return alert('Insumo alterado!')" /></td>
-    </tr>
   </table>
 </form>
 

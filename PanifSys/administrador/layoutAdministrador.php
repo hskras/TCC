@@ -12,6 +12,8 @@
 
 include "../uteis/validaFormCliente.js";
 include "../uteis/validaFormFuncionario.js";
+include "../uteis/validaFormProdutos.js";
+include "../uteis/validaFormEstoque.js";
 include "../uteis/mascaras.js";
 include "../uteis/conexao.php";
 
@@ -71,6 +73,8 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 		<div class="post">
     	<?php
 			 error_reporting(E_ALL ^ E_NOTICE);
+			 $pesqCliente = "";
+			 $pesqFuncionario = "";
 		
 			 if(isset($_GET['inicio'])) {
 				@include ('inicioAdministrador.php'); 
@@ -101,11 +105,17 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 			 else if(isset($_GET['cadastrarInsumo'])){
 				 @include ('../EstoqueProdutos/cadastrarInsumo.php'); 
 			 }
+			 else if(isset($_GET['cadastrarEstoque'])){
+				 @include ('../EstoqueProdutos/cadastrarEstoque.php'); 
+			 }
 			 else if(isset($_GET['listarProdutos'])){
 				 @include ('../EstoqueProdutos/listarProdutos.php');		 
 			 }
 			 else if(isset($_GET['listarEstoque'])){	 
 				@include ('../EstoqueProdutos/listarEstoque.php');
+			 }
+			 else if(isset($_GET['listarInsumos'])){	 
+				@include ('../EstoqueProdutos/listarInsumos.php');
 			 }
 			 else if(isset($_GET['editarInsumo'])){
 				 $insumoAltera = $_GET['editarInsumo'];
@@ -114,6 +124,18 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 			 else if(isset($_GET['editarProdutos'])){
 				 $produtoAltera = $_GET['editarProdutos'];
 				@include ('../EstoqueProdutos/editarProdutos.php');
+			 }
+			 else if(isset($_GET['editarEstoque'])){
+				 $estoqueAltera = $_GET['editarEstoque'];
+				@include ('../EstoqueProdutos/editarEstoque.php');
+			 }
+			 else if(isset($_GET['pesquisarCliente'])){
+				 $pesqCliente = trim($_POST['buscaCliente']);
+				@include ('../cliente/listarClientes.php');
+			 }
+			 else if(isset($_GET['pesquisarFuncionario'])){
+				 $pesqFuncionario = trim($_POST['buscaFuncionario']);
+				@include ('../funcionario/listarFuncionarios.php');
 			 }
 			 	 
 			 else @include ('inicioAdministrador.php'); 
@@ -143,8 +165,9 @@ if (!isset($_SESSION['UsuarioNome']) OR ($_SESSION['UsuarioNivel'] != $nivel_nec
 				<ul>
 					<li><a href="../administrador/layoutAdministrador.php?listarClientes=true">Cadastrar Clientes</a></li>
 					<li><a href="../administrador/layoutAdministrador.php?listarFuncionarios=true">Cadastrar Funcionários</a></li>
-					<li><a href="../administrador/layoutAdministrador.php?listarEstoque=true">Controlar Estoque</a></li>
-                    <li><a href="../administrador/layoutAdministrador.php?listarProdutos=true">Cadastrar Produtos</a></li>										
+					<li><a href="../administrador/layoutAdministrador.php?listarInsumos=true">Cadastrar Insumos</a></li>
+                    <li><a href="../administrador/layoutAdministrador.php?listarProdutos=true">Cadastrar Produtos</a></li>	
+                    <li><a href="../administrador/layoutAdministrador.php?listarEstoque=true">Controlar Estoque</a></li>									
 				</ul>
 			</li>
 			<li> 

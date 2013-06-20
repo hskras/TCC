@@ -52,6 +52,23 @@
 			 else if(isset($_GET['esqueceuSenha'])){
 				@include ('login/esqueceuSenha.php'); 
 			 }
+			 else if(isset($_GET['registroInvalido'])){
+				 ?>
+				<script type="text/javascript">
+        			window.alert("Email não cadastrado.");
+        		</script>
+                <?php
+				@include ('login/esqueceuSenha.php'); 
+			 }
+			 else if(isset($_GET['senhaEnviada'])){
+				 ?>
+				<script type="text/javascript">
+        			window.alert("Seus dados para o login foram enviados para o seu email. Você será redirecionado para a página inicial.");
+        		</script>
+                <?php
+				@include ('inicio.php'); 
+			 }
+			 
 			 else @include ('inicio.php');					
 			?>
             

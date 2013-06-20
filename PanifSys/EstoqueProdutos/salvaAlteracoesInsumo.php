@@ -5,16 +5,8 @@ include "../uteis/conexao.php";
 
 $id_insumo = $_GET['editarInsumo'];
 $insumo = trim($_POST['insumo']);
-$quantidade = trim($_POST['quantidade']);
-$quantidade_minima = trim($_POST['quantidade_minima']);
-$unidade = trim($_POST['unidade']);
 
-if(@mysql_query("UPDATE estoque SET 
-insumo = '$insumo',
-quantidade = '$quantidade',
-quantidade_minima = '$quantidade_minima',
-unidade_medida = '$unidade' WHERE
-id_insumo = '$id_insumo'")){
+if(@mysql_query("UPDATE insumos SET insumo = '$insumo' WHERE id_insumo = '$id_insumo'")){
 
 	if(mysql_affected_rows() == 1){
 		echo "Registro atualizado com sucesso";
@@ -33,11 +25,11 @@ id_insumo = '$id_insumo'")){
 
 if($_SESSION['UsuarioNivel'] == 1)
 {
-	header("Location: ../administrador/layoutAdministrador.php?listarEstoque=true");
+	header("Location: ../administrador/layoutAdministrador.php?listarInsumos=true");
 }
 else if($_SESSION['UsuarioNivel'] == 2)
 {
-	header("Location: ../funcionario/layoutFuncionario.php?listarEstoque=true");
+	header("Location: ../funcionario/layoutFuncionario.php?listarInsumos=true");
 }
 
 ?>

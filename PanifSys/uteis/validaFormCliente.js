@@ -135,6 +135,11 @@ function validaForm(frm,acao) {
 			frm.cidade.focus();
 			return false;
 		}
+		if(frm.cidade.value != "Indaiatuba") {
+			alert("Somente é permitido o cadastro de clientes de Indaiatuba!");
+			frm.cidade.focus();
+			return false;
+		}
 		
 		if(frm.bairro.value == "" || frm.bairro.value == null) {
 			alert("Preencha o Bairro corretamente!");
@@ -142,7 +147,7 @@ function validaForm(frm,acao) {
 			return false;
 		}
 		
-		if(frm.estado.value == "" || frm.estado.value == null) {
+		if(frm.estado.value == "" || frm.estado.value == null || frm.estado.value =="Selecione") {
 			alert("Preencha o estado corretamente!");
 			frm.estado.focus();
 			return false;

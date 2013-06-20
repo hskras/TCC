@@ -28,6 +28,18 @@
     
   </tr>
   <tr>
+    <td align="center">&nbsp;</td>
+    <td colspan="2" align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left"><form id="form1" name="form1" method="post" action="layoutAdministrador.php?pesquisarFuncionario">
+      <label for="buscaFuncionario"></label>
+      <input name="buscaFuncionario" type="text" id="buscaFuncionario" size="40" maxlength="40" />
+      <input type="submit" name="pesquisarFunc" id="pesquisarFunc" value="Pesquisar" />
+    </form></td>
+    <td colspan="2" align="center">&nbsp;</td>
+  </tr>
+  <tr>
     <td width="79%" align="center">&nbsp;</td>
     <td colspan="2" align="center">&nbsp;</td>
   </tr>
@@ -42,14 +54,18 @@
     <td colspan="2" align="center">Ação</td>
   </tr>
   
+  
+  <?php if ($pesqFuncionario == ""){ ?>
+  
   <?php 
   	$sql = mysql_query("SELECT * FROM funcionarios ORDER BY nome");
 	$registros = mysql_num_rows($sql); 
   	while($coluna = mysql_fetch_array($sql)){
+		$id_func = $coluna['id_funcionario'];
 		
 	?>
-  
   <tr>
+  
     <td><?php echo $coluna['nome'] ?> </td>
     <td><?php echo $coluna['telefone'] ?> </td>
     <td><?php echo $coluna['celular'] ?> </td>
@@ -57,8 +73,31 @@
     
     <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarFuncionario=<?php echo $coluna['id_funcionario'] ?>">Alterar</a></td>
     <td width="11%" align="center"><a href="../funcionario/excluirFuncionario.php?excluir=<?php echo $coluna['id_funcionario'] ?>"  onclick="return confirm('Tem certeza que deseja excluir esse funcionario?')">Excluir</a></td>
+  
   </tr>
-  <?php } ?>
+  <?php } } else { 
+  
+  	$sql = mysql_query("SELECT * FROM funcionarios where nome like '%$pesqFuncionario%' ORDER BY nome");
+	$registros = mysql_num_rows($sql); 
+  	while($coluna = mysql_fetch_array($sql)){
+		$id_cliente = $coluna['id_funcionario']; ?>
+	<tr>
+	<?php	if($registros > 0) {
+	  ?>
+      
+    <td><?php echo $coluna['nome'] ?> </td>
+    <td><?php echo $coluna['telefone'] ?> </td>
+    <td><?php echo $coluna['celular'] ?> </td>
+    <td><?php echo $coluna['login_funcionario'] ?> </td>
+    <?php } else { echo "Não foi encontrado nenhum funcionario com esse nome"; } ?>
+    
+    <td width="10%" align="center"><a href="../administrador/layoutAdministrador.php?editarFuncionario=<?php echo $coluna['id_funcionario'] ?>">Alterar</a></td>
+    <td width="11%" align="center"><a href="../funcionario/excluirFuncionario.php?excluir=<?php echo $coluna['id_funcionario'] ?>"  onclick="return confirm('Tem certeza que deseja excluir esse funcionario?')">Excluir</a></td>
+  
+  </tr>
+  <?php } } ?>
+    
+  
   <tr>
     <td colspan="6">&nbsp;</td>
   </tr>

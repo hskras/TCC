@@ -203,10 +203,26 @@ else if($_SESSION['UsuarioNivel'] == 1 || $_SESSION['UsuarioNivel'] == 2){ ?>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Efetivar Cadastramento" /></td>
+      <td colspan="3" align="center"><input type="submit" name="enviar" id="enviar" value="Efetivar Cadastramento"  onclick="reloadCaptcha();"/></td>
     </tr>
   </table>
 </form>
+
+<table width="288">
+<tr>
+<td width="17">&nbsp;
+
+</td>
+<td width="111" align="center">&nbsp;</td>
+<td width="103">&nbsp;
+
+</td>
+<td width="37">
+
+</td>
+
+</tr>
+</table>
 
 </div>
 </div>

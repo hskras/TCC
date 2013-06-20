@@ -29,7 +29,7 @@
                   </tr>
 	              <tr>
 	                <td><input type="submit" value="Entrar" /></td>
-	                <td colspan="2"><a href="index.php?esqueceuSenha=true">Esqueci Minha Senha</a></td>
+	                <td colspan="2"><a href="index.php?esqueceuSenha=true">Esqueceu Sua Senha?</a></td>
 	               
                   </tr>
                 </table>
